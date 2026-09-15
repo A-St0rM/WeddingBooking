@@ -1,5 +1,7 @@
 # Domain Docs
 
+**This repo holds the domain documentation for the whole system**, frontend and backend both. The sibling repo `WeddingBooking-Backend` reads `CONTEXT.md`, `ARCHITECTURE.md` and `docs/adr/` from here rather than keeping copies. Keep them here; never duplicate them across the split.
+
 How the engineering skills should consume this repo's domain documentation when exploring the codebase.
 
 ## Before exploring, read these

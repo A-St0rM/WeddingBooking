@@ -203,6 +203,38 @@ This directly serves the brief's requirement to build against mocks while stayin
 
 ---
 
+---
+
+## Two repos, one system
+
+| Repo | Holds |
+|---|---|
+| `WeddingBooking` | The React frontend **and** all shared documentation: `CONTEXT.md`, `ARCHITECTURE.md`, `docs/adr/`, and the tracker at `.scratch/`. |
+| `WeddingBooking-Backend` | The ASP.NET Core API. Its `docs/adr/` is for backend-only decisions. |
+
+They are assumed to be checked out side by side; the backend's docs reference `../WeddingBooking/` by relative path. A session rooted in one repo may need access granted to the other.
+
+### What belongs where
+
+| Concern | Repo |
+|---|---|
+| Pricing, status derivation, any calculation over money | **Backend** — `Domain` |
+| Access control | **Backend** — `Api`, in one place |
+| Database schema and migrations | **Backend** — `Infrastructure` |
+| e-conomic, Trello, mail drafts, summarisation | **Backend** — `Integrations` |
+| Document generation | **Backend** |
+| Routing, forms, layout, responsiveness | **Frontend** |
+| Danish UI text | **Frontend** |
+| Glossary, ADRs, specs, tickets | **Frontend repo**, as documentation |
+
+The test for anything disputed: **if getting it wrong would produce a wrong number or leak data, it belongs in the backend.** The frontend renders what the API gives it and calculates nothing of consequence — no totals, no status, no authorisation.
+
+This is why `BookingLinje.total` arrives from the API already calculated rather than being multiplied out in React. A second implementation of the pricing rule is a second answer, and the two will eventually disagree about what a couple owes.
+
+### Work that spans both
+
+Most features do. A ticket stays **one ticket** and carries a `Repos:` line naming both. Splitting it produces two halves that can each be "done" while the feature does not work.
+
 ## The core flow
 
 ```mermaid

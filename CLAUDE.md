@@ -43,6 +43,18 @@ A feature owns its own API calls, components and hooks. Reaching into another fe
 - **The UI is in Danish.** Code and comments are in English.
 - **Mobile matters.** Five staff use this from phones while setting tables. Every view works at 375px wide.
 
+## What belongs here, and what belongs in the backend
+
+Full table in [ARCHITECTURE.md](./ARCHITECTURE.md#what-belongs-where). The short version:
+
+This repo renders what the API gives it and **calculates nothing of consequence** — no totals, no status, no authorisation. Pricing, status derivation, access control, the database and every external integration live in `WeddingBooking-Backend`.
+
+The test for anything disputed: if getting it wrong would produce a wrong number or leak data, it belongs in the backend.
+
+This repo also holds the **shared documentation for both repos** — glossary, ADRs, specs and tickets. The backend reads them from here and keeps no copies.
+
+A change that needs both repos is still **one ticket**, with a `Repos:` line naming both.
+
 ## Agent skills
 
 ### Issue tracker

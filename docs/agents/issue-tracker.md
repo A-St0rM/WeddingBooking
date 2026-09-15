@@ -1,6 +1,8 @@
 # Issue tracker: Local Markdown
 
-Issues and specs for this repo live as markdown files in `.scratch/`.
+Issues and specs live as markdown files in `.scratch/`.
+
+**This is the tracker for both repos** — this one and the sibling `WeddingBooking-Backend`. A feature almost always spans both, so it stays one ticket rather than two halves. Every ticket carries a `Repos:` line naming which repos it touches: `frontend`, `backend`, or both.
 
 ## Conventions
 
