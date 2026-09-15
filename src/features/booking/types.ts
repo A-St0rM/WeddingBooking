@@ -2,46 +2,24 @@
  * Domain terms keep their Danish spelling, per ADR-0001 and CONTEXT.md.
  * File and folder names are ASCII-folded (klargoering, not klargøring)
  * because æøå in paths cause trouble across tooling and platforms.
+ *
+ * This is what ticket 01 delivers. Pakker, priser, Salgsstatus and the derived
+ * status arrive in later tickets and are deliberately absent here rather than
+ * declared ahead of the API that serves them.
  */
-
-export type Salgsstatus =
-  | 'Forespørgsel'
-  | 'FremvisningAftalt'
-  | 'TilbudSendt'
-  | 'Vundet'
-  | 'Tabt'
-  | 'Afbestilt';
-
-/** The one word shown to staff. Derived by the API, never set by hand. */
-export type VistStatus =
-  | Salgsstatus
-  | 'BetalingForfalden'
-  | 'ReserveretUdenDækning'
-  | 'UnderKlargøring'
-  | 'KlarTilAfvikling'
-  | 'Afviklet'
-  | 'AfventerEfterfakturering';
-
-export type Pristype = 'FastPris' | 'PrGæst';
-
-export interface BookingLinje {
-  id: string;
-  beskrivelse: string;
-  pristype: Pristype;
-  enhedspris: number;
-  antal: number;
-  /** Calculated by the API. Never stored, never recalculated here. */
-  total: number;
-}
 
 export interface Booking {
   id: string;
-  kundeNavn: string;
-  bryllupsdato: string;
-  /** Lives in exactly one place. Every PrGæst line is priced from it. */
-  gæsteantal: number;
-  salgsstatus: Salgsstatus;
-  vistStatus: VistStatus;
-  linjer: BookingLinje[];
-  total: number;
+  /** The couple as one name, as an accounting system holds it. Becomes a Kunde in ticket 04. */
+  kundenavn: string | null;
+  bryllupsdato: string | null;
+  /** Lives in exactly one place. Every per-guest price will be derived from it. */
+  gæsteantal: number | null;
+  oprettet: string;
+}
+
+export interface OpretBooking {
+  kundenavn: string | null;
+  bryllupsdato: string | null;
+  gæsteantal: number | null;
 }

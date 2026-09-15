@@ -1,12 +1,16 @@
 import { api } from '@/lib/apiClient';
-import type { Booking } from '@/features/booking/types';
+import type { Booking, OpretBooking } from '@/features/booking/types';
 
 export const hentBookinger = () => api<Booking[]>('/api/bookinger');
 
 export const hentBooking = (id: string) => api<Booking>(`/api/bookinger/${id}`);
 
-export const opdaterGæsteantal = (id: string, gæsteantal: number) =>
-  api<Booking>(`/api/bookinger/${id}/gaesteantal`, {
-    method: 'PUT',
-    body: JSON.stringify({ gæsteantal }),
+/** Used to warn before two weddings land on the same Saturday. */
+export const hentBookingerPaaDato = (bryllupsdato: string) =>
+  api<Booking[]>(`/api/bookinger?bryllupsdato=${encodeURIComponent(bryllupsdato)}`);
+
+export const opretBooking = (booking: OpretBooking) =>
+  api<Booking>('/api/bookinger', {
+    method: 'POST',
+    body: JSON.stringify(booking),
   });

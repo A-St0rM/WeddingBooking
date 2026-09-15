@@ -1,10 +1,8 @@
 import { NavLink, Outlet } from 'react-router-dom';
 
-const links = [
-  { to: '/bookinger', label: 'Bookinger' },
-  { to: '/kunder', label: 'Kunder' },
-  { to: '/pakker', label: 'Pakker' },
-];
+// Kunder arrives in ticket 04, Pakker in ticket 06. Links are added when the
+// pages behind them exist, not before.
+const links = [{ to: '/bookinger', label: 'Bookinger' }];
 
 export function AppLayout() {
   return (

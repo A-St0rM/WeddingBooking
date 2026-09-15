@@ -8,5 +8,11 @@ export default defineConfig({
   resolve: {
     alias: { '@': path.resolve(import.meta.dirname, './src') },
   },
-  server: { port: 5173 },
+  server: {
+    port: 5173,
+    // The API is same-origin in development, so no CORS and no base URL to configure.
+    proxy: {
+      '/api': { target: 'http://localhost:5055', changeOrigin: true },
+    },
+  },
 });
